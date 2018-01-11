@@ -64,7 +64,8 @@ def make_chains(text_string, n):
 
 
 
-def make_text(chains, uppercase=True, break_on_first_punctuation=False, character_limit=True):
+def make_text(chains, uppercase=True, break_on_first_punctuation=False, 
+              character_limit=True):
     """Return text from chains."""
 
     random_key = choice(chains.keys())
@@ -85,7 +86,7 @@ def make_text(chains, uppercase=True, break_on_first_punctuation=False, characte
             break       
         words.append(random_value)
         if break_on_first_punctuation:
-            if words[-1][-1] in ["?", ".", ":"]:
+            if words[-1][-1] in ["?", ".", ":", "!"]:
                 break         
         next_key = random_key[1:] + (random_value,)
         random_key = next_key
@@ -96,7 +97,7 @@ def make_text(chains, uppercase=True, break_on_first_punctuation=False, characte
         tweet_custom = return_value[:140]
 
         for i in range(len(tweet_custom)-1, 0, -1):
-            if tweet_custom[i] in ["?", "."]:
+            if tweet_custom[i] in ["?", ".", "!"]:
                 return tweet_custom[:i+1]
 
 
@@ -117,7 +118,7 @@ def tweet(chains):
         access_token_key=os.environ['TWITTER_ACCESS_TOKEN_KEY'],
         access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'])
 
-    print api.VerifyCredentials()
+    # print api.VerifyCredentials()
 
     user_choice = None
     while not (user_choice == 'q' or user_choice == 'Q'):
@@ -126,6 +127,7 @@ def tweet(chains):
 
         print status.text
         user_choice = raw_input("Enter to tweet again [q to quit] > ")
+
 
 
 
